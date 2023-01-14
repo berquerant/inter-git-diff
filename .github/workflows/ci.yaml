@@ -1,0 +1,29 @@
+name: CI
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Describe Github Event Path
+        run: cat $GITHUB_EVENT_PATH
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Display Bash version
+        run: bash --version
+      - name: Display Git version
+        run: git --version
+      - name: Display shellcheck version
+        run: shellcheck --version
+      - name: Shellcheck
+        run: shellcheck inter-git-diff.sh
+      - name: Test
+        run: test/exec.sh
