@@ -4,12 +4,13 @@ set -ex
 
 thisd="$(cd $(dirname $0); pwd)"
 
-export LEFT_REPO="/tmp/left"
-export RIGHT_REPO="/tmp/right"
-
 rm -rf "$LEFT_REPO" "$RIGHT_REPO"
 cp -r "${thisd}/left" "$LEFT_REPO"
 cp -r "${thisd}/right" "$RIGHT_REPO"
+
+git config --global user.email "test@example.com"
+git config --global user.name "test"
+git config --global init.defaultBranch "main"
 
 init_repo() {
     cd "$1"

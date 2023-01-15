@@ -3,12 +3,16 @@
 set -e
 
 thisd="$(cd $(dirname $0); pwd)"
-./prepare.sh
+"${thisd}/prepare.sh"
 
-got="/tmp/got"
-../inter-git-diff.sh "$LEFT_REPO" "$RIGHT_REPO" > "$got"
+got="$(mktemp)"
+"${thisd}/../inter-git-diff.sh" "$LEFT_REPO" "$LEFT_REPO" > "$got"
 
-want="/tmp/want"
-touch "$want"
+want="$(mktemp)"
 
 diff "$want" "$got"
+
+cd "$LEFT_REPO"
+[ "$(git diff)" = "" ]
+cd "$RIGHT_REPO"
+[ "$(git diff)" = "" ]

@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 1
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     steps:
       - name: Describe Github Event Path
@@ -26,12 +26,15 @@ jobs:
         run: bash --version
       - name: Display Git version
         run: git --version
-      - name: Display shellcheck version
-        run: shellcheck --version
       - name: Shellcheck
         shell: bash
         run: |
+          sudo apt update
           sudo apt install shellcheck -y
+          shellcheck --version
           shellcheck inter-git-diff.sh
       - name: Test
         run: test/exec.sh
+        env:
+          LEFT_REPO: /tmp/left
+          RIGHT_REPO: /tmp/right
