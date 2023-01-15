@@ -1,20 +1,32 @@
 #!/bin/bash
 
+# inter-git-diff.sh compares files between repos.
+#
+# Usage:
+#
+# inter-git-diff.sh LEFT_REPO RIGHT_REPO
+#
+# LEFT_REPO is the path to comparison source repo.
+# RIGHT_REPO is the path to comparson destination repo.
+#
+# Environment variables:
+#
+#   IGD_DIFF_DETAIL:
+#     If 1, display the details of the diff.
+#
+#   IGD_REPLACE:
+#     If 1, apply patches to RIGHT_REPO.
+#     Patches are for:
+#     - a file that exists in LEFT_REPO but not in RIGHT_REPO
+#     - a file that exists in LEFT_REPO and RIGHT_REPO but has some diff
+
 set -e
 
 left_repo="$1"
 right_repo="$2"
-replace_selector="$3"
-
-igd_replace_selector() {
-    if [ -z "$replace_selector" ] ; then
-        return 0
-    fi
-    "$replace_selector" "$1"
-}
 
 igd_can_replace() {
-    igd_replace_selector "$1" && [ "$IGD_REPLACE" = "1" ]
+    [ "$IGD_REPLACE" = "1" ]
 }
 
 igd_diff() {
@@ -26,12 +38,12 @@ igd_diff() {
     fi
 }
 
-tmp_file="/tmp/igd.tmp"
+tmp_file="$(mktemp)"
 cd "$left_repo"
-git ls > "$tmp_file"
+git ls-files > "$tmp_file"
 cd "$right_repo"
-git ls >> "$tmp_file"
-tmp_file_list="/tmp/igd.file.list"
+git ls-files >> "$tmp_file"
+tmp_file_list="$(mktemp)"
 sort "$tmp_file" | uniq > "$tmp_file_list"
 
 set +e
@@ -59,10 +71,10 @@ while read -r target ; do
                     echo "Copy ${target_left} to ${target_right}"
                     cp "$target_left" "$target_right"
                 else
-                    echo "Not exist ${target_left}"
+                    echo "Not exist ${target_right}"
                 fi
             else
-                echo "Not exist ${target_right}"
+                echo "Not exist ${target_left}"
             fi
             ;;
     esac
