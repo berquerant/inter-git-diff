@@ -25,6 +25,11 @@ set -e
 left_repo="$1"
 right_repo="$2"
 
+if [ ! -d "$left_repo" ] || [ ! -d "$right_repo" ] ; then
+    echo "inter-git-diff.sh LEFT_REPO RIGHT_REPO"
+    exit 1
+fi
+
 igd_can_replace() {
     [ "$IGD_REPLACE" = "1" ]
 }
@@ -34,7 +39,7 @@ igd_diff() {
         echo "Check $1 and $2"
         diff "$1" "$2"
     else
-        diff "$1" "$2" >/dev/null 2>&1
+        diff "$1" "$2" >/dev/null
     fi
 }
 
