@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 thisd="$(cd $(dirname $0); pwd)"
 
