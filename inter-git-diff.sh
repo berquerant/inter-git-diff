@@ -78,6 +78,9 @@ while read -r target ; do
                 else
                     echo "Not exist ${target_right}"
                 fi
+            elif igd_can_replace "$target" ; then
+                echo "Remove ${target_right}"
+                rm "$target_right"
             else
                 echo "Not exist ${target_left}"
             fi
