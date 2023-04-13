@@ -28,6 +28,16 @@ error() {
 left_repo="$1"
 right_repo="$2"
 
+is_abs_path() {
+    test "${1:0:1}" = "/"
+}
+if ! is_abs_path "$left_repo" ; then
+    left_repo="${PWD}/${left_repo}"
+fi
+if ! is_abs_path "$right_repo" ; then
+    right_repo="${PWD}/${right_repo}"
+fi
+
 arg_ok=1
 
 if [ ! -d "$left_repo" ] ; then
