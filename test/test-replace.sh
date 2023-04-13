@@ -28,4 +28,5 @@ diff "${LEFT_REPO}/aa.txt" "${RIGHT_REPO}/aa.txt"
 diff "${LEFT_REPO}/d/b.txt" "${RIGHT_REPO}/d/b.txt"
 diff "${LEFT_REPO}/d/c.txt" "${RIGHT_REPO}/d/c.txt"
 [ ! -e "${RIGHT_REPO}/d/d.txt" ]
+diff "${LEFT_REPO}/d/e.txt" "${RIGHT_REPO}/d/e.txt"
 "${thisd}/../inter-git-diff.sh" "$LEFT_REPO" "$RIGHT_REPO"

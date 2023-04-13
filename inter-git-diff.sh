@@ -98,9 +98,7 @@ while read -r target ; do
             if [ -e "$target_left" ] ; then
                 if igd_can_replace "$target" ; then
                     echo "Copy ${target_left} to ${target_right}"
-                    if [ -d "$target_left" ] ; then
-                        mkdir -p "$(dirname "$target_right")"
-                    fi
+                    mkdir -p "$(dirname "$target_right")"
                     cp "$target_left" "$target_right"
                 else
                     echo "Not exist ${target_right}"
