@@ -34,16 +34,17 @@ left
 ├── aa.txt
 └── d
     ├── b.txt
-    └── c.txt
+    ├── c.txt
+    └── e.txt
 ```
 
 right repo:
 ```
 right
 ├── README.md
-├── a.txt (with diff)
+├── a.txt
 └── d
-    ├── b.txt (with diff)
+    ├── b.txt
     ├── c.txt
     └── d.txt
 ```
@@ -53,7 +54,11 @@ then
 ``` sh
 ❯ ./inter-git-diff.sh /path/to/left /path/to/right
 Diff /path/to/left/a.txt /path/to/right/a.txt
+diff: /path/to/right/aa.txt: No such file or directory
 Not exist /path/to/right/aa.txt
 Diff /path/to/left/d/b.txt /path/to/right/d/b.txt
+diff: /path/to/left/d/d.txt: No such file or directory
 Not exist /path/to/left/d/d.txt
+diff: /path/to/right/d/e.txt: No such file or directory
+Not exist /path/to/right/d/e.txt
 ```
