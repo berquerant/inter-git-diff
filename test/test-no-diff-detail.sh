@@ -15,6 +15,7 @@ Check /tmp/left/a.txt and /tmp/left/a.txt
 Check /tmp/left/aa.txt and /tmp/left/aa.txt
 Check /tmp/left/d/b.txt and /tmp/left/d/b.txt
 Check /tmp/left/d/c.txt and /tmp/left/d/c.txt
+Check /tmp/left/d/e.txt and /tmp/left/d/e.txt
 EOT
 
 diff "$want" "$got"

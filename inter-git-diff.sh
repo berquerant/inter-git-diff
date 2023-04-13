@@ -30,11 +30,11 @@ right_repo="$2"
 
 arg_ok=1
 
-if [ ! -d "$left_repo" ]; then
+if [ ! -d "$left_repo" ] ; then
     arg_ok=0
     error "${left_repo} is not a directory"
 fi
-if [ ! -d "$right_repo" ]; then
+if [ ! -d "$right_repo" ] ; then
     arg_ok=0
     error "${right_repo} is not a directory"
 fi
@@ -88,6 +88,9 @@ while read -r target ; do
             if [ -e "$target_left" ] ; then
                 if igd_can_replace "$target" ; then
                     echo "Copy ${target_left} to ${target_right}"
+                    if [ -d "$target_left" ] ; then
+                        mkdir -p "$(dirname "$target_right")"
+                    fi
                     cp "$target_left" "$target_right"
                 else
                     echo "Not exist ${target_right}"

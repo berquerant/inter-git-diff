@@ -14,6 +14,7 @@ Replace /tmp/right/a.txt with /tmp/left/a.txt
 Copy /tmp/left/aa.txt to /tmp/right/aa.txt
 Replace /tmp/right/d/b.txt with /tmp/left/d/b.txt
 Remove /tmp/right/d/d.txt
+Copy /tmp/left/d/e.txt to /tmp/right/d/e.txt
 EOT
 
 diff "$want" "$got"

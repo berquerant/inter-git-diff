@@ -14,6 +14,7 @@ Diff /tmp/left/a.txt /tmp/right/a.txt
 Not exist /tmp/right/aa.txt
 Diff /tmp/left/d/b.txt /tmp/right/d/b.txt
 Not exist /tmp/left/d/d.txt
+Not exist /tmp/right/d/e.txt
 EOT
 
 diff "$want" "$got"
