@@ -5,14 +5,9 @@ set -e
 thisd="$(cd $(dirname $0); pwd)"
 "${thisd}/prepare.sh"
 
-want="$(mktemp)"
-echo "inter-git-diff.sh LEFT_REPO RIGHT_REPO" > "$want"
-got="$(mktemp)"
-
 run() {
     echo "Run invalid($1, $2)"
-    ! "${thisd}/../inter-git-diff.sh" "$1" "$2" > "$got"
-    diff "$want" "$got"
+    ! "${thisd}/../inter-git-diff.sh" "$1" "$2"
     cd "$LEFT_REPO"
     [ "$(git diff)" = "" ]
     cd "$RIGHT_REPO"

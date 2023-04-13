@@ -18,15 +18,28 @@
 #     If 1, apply patches to RIGHT_REPO.
 #     Patches are for:
 #     - a file that exists in LEFT_REPO but not in RIGHT_REPO
+#     - a file that not exists in LEFT_REPO but in RIGHT_REPO
 #     - a file that exists in LEFT_REPO and RIGHT_REPO but has some diff
 
-set -e
+error() {
+    echo "$@" >&2
+}
 
 left_repo="$1"
 right_repo="$2"
 
-if [ ! -d "$left_repo" ] || [ ! -d "$right_repo" ] ; then
-    echo "inter-git-diff.sh LEFT_REPO RIGHT_REPO"
+arg_ok=1
+
+if [ ! -d "$left_repo" ]; then
+    arg_ok=0
+    error "${left_repo} is not a directory"
+fi
+if [ ! -d "$right_repo" ]; then
+    arg_ok=0
+    error "${right_repo} is not a directory"
+fi
+if [ "$arg_ok" = 0 ] ; then
+    error "inter-git-diff.sh LEFT_REPO RIGHT_REPO"
     exit 1
 fi
 
@@ -43,6 +56,7 @@ igd_diff() {
     fi
 }
 
+set -e
 tmp_file="$(mktemp)"
 cd "$left_repo"
 git ls-files > "$tmp_file"
