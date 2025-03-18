@@ -22,8 +22,6 @@ jobs:
       - name: Shellcheck
         shell: bash
         run: |
-          sudo apt update
-          sudo apt install shellcheck -y
           shellcheck --version
           shellcheck inter-git-diff.sh
       - name: Test
